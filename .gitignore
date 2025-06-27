@@ -3,6 +3,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Build ###
+/backend/src/main/resources/static/
+
 ### STS ###
 .apt_generated
 .classpath
@@ -30,6 +33,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Frontend ###
+/frontend/dist/
+/frontend/node_modules/
 
 ### Postgres local data ###
 /docker/pgdata/
