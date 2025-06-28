@@ -1,0 +1,20 @@
+
+:root {
+  /** Base CSS Variables **/
+
+  // Application
+  --base-application-color: black;
+  --base-application-background-color: rgb(255, 255, 255);
+
+  // Sizes
+  --base-font-weight: 300;
+  --base-line-height: 1.5;
+  --base-font-size: 1.75rem;
+
+  /** Component CSS Variables **/
+
+  // Colors
+  --background-color: white;
+  --primary-color: red;
+  --link-color: #f33140;
+}

@@ -1,0 +1,60 @@
+/** Responsive Breakpoints **/
+// Width
+$bp-w-2400: 2400;
+$bp-w-2300: 2300;
+$bp-w-2200: 2200;
+$bp-w-2100: 2100;
+$bp-w-2000: 2000;
+$bp-w-1900: 1900;
+$bp-w-1800: 1800;
+$bp-w-1700: 1700;
+$bp-w-1600: 1600;
+$bp-w-1500: 1500;
+$bp-w-1400: 1400;
+$bp-w-1300: 1300;
+$bp-w-1200: 1200;
+$bp-w-1100: 1100;
+$bp-w-1000: 1000;
+$bp-w-900: 900;
+$bp-w-800: 800;
+$bp-w-700: 700;
+$bp-w-600: 600;
+$bp-w-500: 500;
+$bp-w-400: 400;
+$bp-w-300: 300;
+
+// Height
+$bp-h-1000: 1000;
+$bp-h-900: 900;
+$bp-h-800: 800;
+$bp-h-700: 700;
+$bp-h-600: 600;
+
+/** Custom Media Queries **/
+// media query mixin for width
+@mixin respond($breakpoint) {
+  @media only screen and (max-width: px-to-screen($breakpoint)) {
+    @content;
+  }
+}
+
+// media query mixin for height
+@mixin respondHeight($breakpoint) {
+  @media only screen and (max-height: px-to-screen($breakpoint)) {
+    @content;
+  }
+}
+
+/** Custom Responsiveness Mixins **/
+// Mixin to constrain and center content only on large screens (≥ 1400px)
+@mixin centerLargeScreen($pixels: 1400px) {
+  max-width: $pixels;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/** Custom Responsiveness Functions **/
+// convert px to screen size measurements
+@function px-to-screen($number) {
+  @return calc(($number / 16) * 1em);
+}

@@ -1,0 +1,27 @@
+@import './mixins';
+@import './responsive';
+@import './variables';
+
+// Global css
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; // 1 rem = 10 px
+}
+
+body {
+  font-family: sans-serif;
+  color: var(--base-application-color);
+  background-color: var(--base-application-background-color);
+  font-weight: var(--base-font-weight);
+  line-height: var(--base-line-height);
+  font-size: var(--base-font-size);
+  padding: 0 0;
+}

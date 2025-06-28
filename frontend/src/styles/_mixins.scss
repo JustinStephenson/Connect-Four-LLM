@@ -1,0 +1,14 @@
+// Use this to make a position:absolute centered
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Basic flex box centering
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
