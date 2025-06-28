@@ -13,7 +13,13 @@ import Hello from "./components/Hello.vue";
 </style>
 
 <style scoped lang="scss">
+@import "./styles/mixins";
+
 .app {
+  height: 100vh;
+  width: 100vw;
   background-color: var(--base-application-background-color);
+
+  @include flexCenter;
 }
 </style>
