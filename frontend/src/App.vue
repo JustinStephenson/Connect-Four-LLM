@@ -1,6 +1,5 @@
 <template>
   <div class="app">
-    Hello
     <Hello />
   </div>
 </template>
@@ -15,6 +14,6 @@ import Hello from "./components/Hello.vue";
 
 <style scoped lang="scss">
 .app {
-  background-color: var(--primary-color);
+  background-color: var(--base-application-background-color);
 }
 </style>
