@@ -2,5 +2,11 @@ spring:
   application:
     name: connect-four-llm
 
+llm:
+  # The client to use. Valid options are:
+  # - "openAIClient" : Uses the OpenAI LLM client implementation.
+  # - "ollamaClient" : Uses the Ollama LLM client implementation.
+  client: "ollamaClient"
+
 server:
   port: 8080

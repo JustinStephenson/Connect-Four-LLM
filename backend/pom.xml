@@ -30,6 +30,8 @@
         <java.version>23</java.version>
         <spring-doc.version>2.5.0</spring-doc.version>
         <lombok.version>1.18.38</lombok.version>
+        <open-ai.version>2.11.0</open-ai.version>
+        <dotenv-java.version>3.0.0</dotenv-java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -58,6 +60,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.openai</groupId>
+            <artifactId>openai-java</artifactId>
+            <version>${open-ai.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>${dotenv-java.version}</version>
         </dependency>
     </dependencies>
 

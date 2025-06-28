@@ -6,6 +6,9 @@ target/
 ### Build ###
 /backend/src/main/resources/static/
 
+### Environment Variables ###
+.env
+
 ### STS ###
 .apt_generated
 .classpath
