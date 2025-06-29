@@ -5,12 +5,16 @@ import com.openai.client.OpenAIClient;
 import com.openai.models.chat.completions.ChatCompletion;
 import com.openai.models.chat.completions.ChatCompletionCreateParams;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component(value = "ollamaClient")
 public class OllamaLLMClient implements LLMClient {
 
     private final OpenAIClient client;
+
+    @Value("${llm.model}")
+    private String model;
 
     private ChatCompletion chatCompletion;
 
@@ -21,7 +25,7 @@ public class OllamaLLMClient implements LLMClient {
     @Override
     public void buildResponse(String prompt) {
         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
-                .model(OllamaModel.LLama3_2.getModelName())
+                .model(model)
                 .addDeveloperMessage(prompt)
                 .addUserMessage(prompt)
                 .build();

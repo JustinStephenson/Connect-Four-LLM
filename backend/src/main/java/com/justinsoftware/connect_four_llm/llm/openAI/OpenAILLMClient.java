@@ -2,16 +2,19 @@ package com.justinsoftware.connect_four_llm.llm.openAI;
 
 import com.justinsoftware.connect_four_llm.llm.LLMClient;
 import com.openai.client.OpenAIClient;
-import com.openai.models.ChatModel;
 import com.openai.models.responses.Response;
 import com.openai.models.responses.ResponseCreateParams;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component(value = "openAIClient")
 public class OpenAILLMClient implements LLMClient {
 
     private final OpenAIClient client;
+
+    @Value("${llm.model}")
+    private String model;
 
     private Response response;
 
@@ -22,7 +25,7 @@ public class OpenAILLMClient implements LLMClient {
     @Override
     public void buildResponse(String prompt) {
         ResponseCreateParams params = ResponseCreateParams.builder()
-                .model(ChatModel.GPT_4O_MINI)
+                .model(model)
                 .input(prompt)
                 .build();
 

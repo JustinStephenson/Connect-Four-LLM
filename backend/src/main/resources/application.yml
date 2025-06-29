@@ -7,6 +7,10 @@ llm:
   # - "openAIClient" : Uses the OpenAI LLM client implementation.
   # - "ollamaClient" : Uses the Ollama LLM client implementation.
   client: "ollamaClient"
+  # The model for the llm to use.
+  # client: "openAIClient" -> A standard model is gpt-4o-mini.
+  # client: "ollamaClient" -> A standard model is llama3.2
+  model: "llama3.2"
 
 server:
   port: 8080
