@@ -1,7 +1,20 @@
 <template>
-  <div>Game</div>
+  <section class="main">
+    <Board />
+  </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Board from "./Board.vue";
+</script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@use "./../styles/mixins" as mixin;
+
+.main {
+  width: 100%;
+  height: 100%;
+
+  @include mixin.flexCenter;
+}
+</style>
