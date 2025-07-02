@@ -1,25 +1,25 @@
 <template>
-  <div class="app">
-    <Hello />
-  </div>
+  <main class="app">
+    <Game />
+  </main>
 </template>
 
 <script setup lang="ts">
-import Hello from "./components/Hello.vue";
+import Game from "./components/Game.vue";
 </script>
 
 <style lang="scss">
-@import "./styles/global";
+@use "./styles/global";
 </style>
 
 <style scoped lang="scss">
-@import "./styles/mixins";
+@use "./styles/mixins" as mixin;
 
 .app {
   height: 100vh;
   width: 100vw;
   background-color: var(--base-application-background-color);
 
-  @include flexCenter;
+  @include mixin.flexCenter;
 }
 </style>

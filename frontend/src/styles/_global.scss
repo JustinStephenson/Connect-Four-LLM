@@ -1,6 +1,6 @@
-@import './mixins';
-@import './responsive';
-@import './variables';
+@use './mixins';
+@use './responsive';
+@use './variables';
 
 // Global css
 *,
@@ -19,9 +19,10 @@ html {
 body {
   font-family: sans-serif;
   color: var(--base-application-color);
-  background-color: var(--base-application-background-color);
+  //background-color: var(--base-application-background-color);
   font-weight: var(--base-font-weight);
   line-height: var(--base-line-height);
   font-size: var(--base-font-size);
   padding: 0 0;
+  background-color: red;
 }
