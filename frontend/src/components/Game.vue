@@ -1,11 +1,14 @@
 <template>
   <section class="main">
-    <Board />
+    <Board :slot-matrix="slotMatrix" />
   </section>
 </template>
 
 <script setup lang="ts">
-import Board from "./Board.vue";
+import Board from "./board/Board.vue";
+import { createMatrix } from "../util";
+
+const slotMatrix: number[][] = createMatrix(7, 7);
 </script>
 
 <style scoped lang="scss">
