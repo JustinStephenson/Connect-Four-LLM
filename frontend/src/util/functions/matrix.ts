@@ -1,11 +1,11 @@
-import type { Types } from "../../types/types.ts";
+import type { TokenType } from "../../types/tokenType.ts";
 
-export const createMatrix = (rows: number, cols: number): Types[][] => {
-  const matrix: Types[][] = [];
+export const createMatrix = (rows: number, cols: number): TokenType[][] => {
+  const matrix: TokenType[][] = [];
   for (let i = 0; i < rows; i++) {
-    const row: Types[] = [];
+    const row: TokenType[] = [];
     for (let j = 0; j < cols; j++) {
-      row.push(1);
+      row.push(0);
     }
     matrix.push(row);
   }

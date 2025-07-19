@@ -6,10 +6,10 @@
 
 <script setup lang="ts">
 import Token from "./Token.vue";
-import type { Types } from "../../types/types.ts";
+import type { TokenType } from "../../types/tokenType.ts";
 
 type SlotProps = {
-  number: Types;
+  number: TokenType;
 };
 const props = withDefaults(defineProps<SlotProps>(), {
   number: 0,

@@ -7,7 +7,7 @@
           :class="{ active: hoveredColumn === columnIndex }"
         >
           <div v-if="hoveredColumn === columnIndex">
-            <Token :number="1" />
+            <Token :number="props.currentPlayer" />
           </div>
         </div>
       </template>
@@ -18,6 +18,7 @@
         <template v-for="(number, columnIndex) in rows">
           <Slot
             :number="number"
+            @click="onClick(columnIndex)"
             @mouseenter="onMouseEnter(columnIndex)"
             @mouseleave="onMouseLeave()"
           />
@@ -31,16 +32,30 @@
 import Slot from "./Slot.vue";
 import { ref } from "vue";
 import Token from "./Token.vue";
-import type { Types } from "../../types/types.ts";
+import type { TokenType } from "../../types/tokenType.ts";
 
 type BoardProps = {
-  slotMatrix: Types[][];
+  slotMatrix: TokenType[][];
+  currentPlayer: TokenType;
 };
 const props = defineProps<BoardProps>();
-console.log(props.slotMatrix);
+
+type BoardEmits = {
+  (emit: "hasClicked", clicked: boolean): void;
+};
+const emit = defineEmits<BoardEmits>();
 
 const hoveredColumn = ref<number | null>(null);
 
+const onClick = (columnIndex: number) => {
+  for (let row = props.slotMatrix.length - 1; row >= 0; row--) {
+    if (props.slotMatrix[row][columnIndex] === 0) {
+      props.slotMatrix[row][columnIndex] = props.currentPlayer;
+      emit("hasClicked", true);
+      break;
+    }
+  }
+};
 const onMouseEnter = (columnIndex: number) => {
   hoveredColumn.value = columnIndex;
 };

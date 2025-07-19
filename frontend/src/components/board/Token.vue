@@ -6,10 +6,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Types } from "../../types/types.ts";
+import type { TokenType } from "../../types/tokenType.ts";
 
 type TokenProps = {
-  number: Types;
+  number: TokenType;
 };
 const props = defineProps<TokenProps>();
 </script>
