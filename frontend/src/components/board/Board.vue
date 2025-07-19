@@ -31,10 +31,10 @@
 import Slot from "./Slot.vue";
 import { ref } from "vue";
 import Token from "./Token.vue";
-import type { TokenType } from "../../types/TokenType.ts";
+import type { Types } from "../../types/types.ts";
 
 type BoardProps = {
-  slotMatrix: TokenType[][];
+  slotMatrix: Types[][];
 };
 const props = defineProps<BoardProps>();
 console.log(props.slotMatrix);
