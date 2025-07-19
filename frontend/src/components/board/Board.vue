@@ -66,10 +66,10 @@ const onMouseLeave = () => {
 
 <style scoped lang="scss">
 .board {
-  width: 40%;
-  height: 60%;
+  width: 75rem;
+  height: 80rem;
   display: grid;
-  grid-template-rows: 2fr 10fr;
+  grid-template-rows: 1.5fr 10fr;
 }
 
 .grid {

@@ -16,7 +16,7 @@ const props = defineProps<TokenProps>();
 
 <style scoped lang="scss">
 .token {
-  width: 5rem;
+  width: 7rem;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
 }

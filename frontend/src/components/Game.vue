@@ -1,5 +1,6 @@
 <template>
   <section class="main">
+    <div class="status"></div>
     <Board
       :slot-matrix="slotMatrix"
       :current-player="currentPlayer"
@@ -37,6 +38,8 @@ const changePlayer = () => {
   width: 100%;
   height: 100%;
 
-  @include mixin.flexCenter;
+  display: grid;
+  place-items: center;
+  grid-template-rows: 1fr 10fr;
 }
 </style>
