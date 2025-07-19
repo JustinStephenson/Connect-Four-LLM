@@ -1,11 +1,16 @@
 <template>
   <main class="app">
+    <Header />
     <Game />
   </main>
 </template>
 
 <script setup lang="ts">
 import Game from "./components/Game.vue";
+import { useMobileResponsive } from "./util";
+import Header from "./components/header/Header.vue";
+
+useMobileResponsive();
 </script>
 
 <style lang="scss">
@@ -13,13 +18,12 @@ import Game from "./components/Game.vue";
 </style>
 
 <style scoped lang="scss">
-@use "./styles/mixins" as mixin;
-
 .app {
-  height: 100vh;
-  width: 100vw;
-  background-color: var(--base-application-background-color);
-
-  @include mixin.flexCenter;
+  height: calc(var(--vh) * 100);
+  width: 100%;
+  display: grid;
+  grid-template-rows:
+    calc(var(--vh) * 10) [header]
+    1fr [body];
 }
 </style>
