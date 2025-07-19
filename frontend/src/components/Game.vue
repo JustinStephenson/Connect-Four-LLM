@@ -1,10 +1,10 @@
 <template>
   <section class="main">
-    <div class="status"></div>
+    <div class="status">{{ status }}</div>
     <Board
       :slot-matrix="slotMatrix"
       :current-player="currentPlayer"
-      @has-clicked="changePlayer()"
+      @player-pos="onPlayedToken"
     />
   </section>
 </template>
@@ -12,8 +12,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Board from "./board/Board.vue";
-import { createMatrix } from "../util";
-import type { TokenType } from "../types/tokenType.ts";
+import { checkWin, createMatrix } from "../util";
+import type { PlayerPos, TokenType } from "../types/types.ts";
 
 const slotMatrix: TokenType[][] = createMatrix(7, 7);
 const players: Record<string, TokenType> = {
@@ -21,13 +21,27 @@ const players: Record<string, TokenType> = {
   PlayerTwo: 2 as TokenType,
 };
 const currentPlayer = ref<TokenType>(players.PlayerOne);
+const status = ref<string>("");
 
+const onPlayedToken = (playerPos: PlayerPos) => {
+  const hasWon = checkWin(
+    slotMatrix,
+    currentPlayer.value,
+    playerPos.row,
+    playerPos.col,
+  );
+  if (hasWon) {
+    status.value = "Player " + currentPlayer.value + " has won!";
+  } else {
+    changePlayer();
+  }
+};
 const changePlayer = () => {
-  console.log(currentPlayer.value);
-  currentPlayer.value =
-    currentPlayer.value === players.PlayerOne
-      ? players.PlayerTwo
-      : players.PlayerOne;
+  if (currentPlayer.value === players.PlayerOne) {
+    currentPlayer.value = players.PlayerTwo;
+  } else {
+    currentPlayer.value = players.PlayerOne;
+  }
 };
 </script>
 

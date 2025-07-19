@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TokenType } from "../../types/tokenType.ts";
+import type { TokenType } from "../../types/types.ts";
 
 type TokenProps = {
   number: TokenType;

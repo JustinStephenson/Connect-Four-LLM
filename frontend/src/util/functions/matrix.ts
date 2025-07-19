@@ -1,4 +1,4 @@
-import type { TokenType } from "../../types/tokenType.ts";
+import type { TokenType } from "../../types/types.ts";
 
 export const createMatrix = (rows: number, cols: number): TokenType[][] => {
   const matrix: TokenType[][] = [];

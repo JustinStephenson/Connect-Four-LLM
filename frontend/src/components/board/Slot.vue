@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import Token from "./Token.vue";
-import type { TokenType } from "../../types/tokenType.ts";
+import type { TokenType } from "../../types/types.ts";
 
 type SlotProps = {
   number: TokenType;

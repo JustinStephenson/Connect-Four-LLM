@@ -32,7 +32,7 @@
 import Slot from "./Slot.vue";
 import { ref } from "vue";
 import Token from "./Token.vue";
-import type { TokenType } from "../../types/tokenType.ts";
+import type { PlayerPos, TokenType } from "../../types/types.ts";
 
 type BoardProps = {
   slotMatrix: TokenType[][];
@@ -41,7 +41,7 @@ type BoardProps = {
 const props = defineProps<BoardProps>();
 
 type BoardEmits = {
-  (emit: "hasClicked", clicked: boolean): void;
+  (emit: "playerPos", playerPos: PlayerPos): void;
 };
 const emit = defineEmits<BoardEmits>();
 
@@ -51,7 +51,7 @@ const onClick = (columnIndex: number) => {
   for (let row = props.slotMatrix.length - 1; row >= 0; row--) {
     if (props.slotMatrix[row][columnIndex] === 0) {
       props.slotMatrix[row][columnIndex] = props.currentPlayer;
-      emit("hasClicked", true);
+      emit("playerPos", { row: row, col: columnIndex });
       break;
     }
   }
