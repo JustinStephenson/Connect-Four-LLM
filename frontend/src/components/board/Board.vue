@@ -1,12 +1,14 @@
 <template>
   <section class="board">
-    <div class="arrow">
+    <div class="hover">
       <template v-for="(_, columnIndex) in props.slotMatrix[0].length">
         <div
-          class="arrow__pointer"
+          class="hover__pointer"
           :class="{ active: hoveredColumn === columnIndex }"
         >
-          <span v-if="hoveredColumn === columnIndex">↓</span>
+          <div v-if="hoveredColumn === columnIndex">
+            <Token />
+          </div>
         </div>
       </template>
     </div>
@@ -27,6 +29,7 @@
 <script setup lang="ts">
 import Slot from "./Slot.vue";
 import { ref } from "vue";
+import Token from "./Token.vue";
 
 type BoardProps = {
   slotMatrix: number[][];
@@ -46,10 +49,10 @@ const onMouseLeave = () => {
 
 <style scoped lang="scss">
 .board {
-  width: 50%;
-  height: 50%;
+  width: 40%;
+  height: 60%;
   display: grid;
-  grid-template-rows: 1fr 10fr;
+  grid-template-rows: 2fr 10fr;
 }
 
 .grid {
@@ -58,11 +61,10 @@ const onMouseLeave = () => {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(7, 1fr);
-
   border: 0.5rem solid black;
 }
 
-.arrow {
+.hover {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 
@@ -70,9 +72,6 @@ const onMouseLeave = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    font-weight: bold;
-    color: black;
     opacity: 0;
     transition: opacity 0.2s;
 
