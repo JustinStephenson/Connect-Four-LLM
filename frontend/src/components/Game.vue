@@ -7,8 +7,9 @@
 <script setup lang="ts">
 import Board from "./board/Board.vue";
 import { createMatrix } from "../util";
+import type { TokenType } from "../types/TokenType.ts";
 
-const slotMatrix: number[][] = createMatrix(7, 7);
+const slotMatrix: TokenType[][] = createMatrix(7, 7);
 </script>
 
 <style scoped lang="scss">

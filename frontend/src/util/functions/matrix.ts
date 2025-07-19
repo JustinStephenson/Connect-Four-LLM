@@ -1,9 +1,11 @@
-export const createMatrix = (rows: number, cols: number) => {
-  const matrix: number[][] = [];
+import type { TokenType } from "../../types/TokenType.ts";
+
+export const createMatrix = (rows: number, cols: number): TokenType[][] => {
+  const matrix: TokenType[][] = [];
   for (let i = 0; i < rows; i++) {
-    const row: number[] = [];
+    const row: TokenType[] = [];
     for (let j = 0; j < cols; j++) {
-      row.push(0);
+      row.push(1);
     }
     matrix.push(row);
   }

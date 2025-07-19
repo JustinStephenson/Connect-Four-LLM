@@ -1,17 +1,18 @@
 <template>
-  <div class="slot" :style="{ backgroundColor: props.color }">
-    <Token />
+  <div class="slot">
+    <Token :number="props.number" />
   </div>
 </template>
 
 <script setup lang="ts">
 import Token from "./Token.vue";
+import type { TokenType } from "../../types/TokenType.ts";
 
 type SlotProps = {
-  color?: string;
+  number: TokenType;
 };
 const props = withDefaults(defineProps<SlotProps>(), {
-  color: "transparent",
+  number: 0,
 });
 </script>
 
@@ -22,6 +23,7 @@ const props = withDefaults(defineProps<SlotProps>(), {
   width: 100%;
   height: 100%;
   border: 0.5rem solid black;
+  background-color: transparent;
 
   @include mixin.flexCenter;
 }

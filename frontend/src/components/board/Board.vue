@@ -7,7 +7,7 @@
           :class="{ active: hoveredColumn === columnIndex }"
         >
           <div v-if="hoveredColumn === columnIndex">
-            <Token />
+            <Token :number="1" />
           </div>
         </div>
       </template>
@@ -15,8 +15,9 @@
 
     <div class="grid">
       <template v-for="rows in props.slotMatrix">
-        <template v-for="(_, columnIndex) in rows">
+        <template v-for="(number, columnIndex) in rows">
           <Slot
+            :number="number"
             @mouseenter="onMouseEnter(columnIndex)"
             @mouseleave="onMouseLeave()"
           />
@@ -30,9 +31,10 @@
 import Slot from "./Slot.vue";
 import { ref } from "vue";
 import Token from "./Token.vue";
+import type { TokenType } from "../../types/TokenType.ts";
 
 type BoardProps = {
-  slotMatrix: number[][];
+  slotMatrix: TokenType[][];
 };
 const props = defineProps<BoardProps>();
 console.log(props.slotMatrix);
