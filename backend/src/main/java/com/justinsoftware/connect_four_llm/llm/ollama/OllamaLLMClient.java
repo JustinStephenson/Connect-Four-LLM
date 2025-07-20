@@ -26,7 +26,6 @@ public class OllamaLLMClient implements LLMClient {
     public void buildResponse(String prompt) {
         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
                 .model(model)
-                .addDeveloperMessage(prompt)
                 .addUserMessage(prompt)
                 .build();
 

@@ -1,10 +1,9 @@
 package com.justinsoftware.connect_four_llm.controller;
 
+import com.justinsoftware.connect_four_llm.dto.PromptDTO;
 import com.justinsoftware.connect_four_llm.service.LLMService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,8 +14,14 @@ public class LLMController {
 
     @GetMapping("/")
     public String getLLMResponse() {
-        String prompt = "Hello, this is a test prompt";
+        String prompt = "Can you respond with 'GET, I am the best LLM'";
         llmService.buildResponse(prompt);
+        return llmService.getResponse();
+    }
+
+    @PostMapping("/prompt")
+    public String getLLMResponse(@RequestBody PromptDTO request) {
+        llmService.buildResponse(request.prompt());
         return llmService.getResponse();
     }
 }

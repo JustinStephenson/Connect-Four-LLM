@@ -30,7 +30,7 @@
         <java.version>23</java.version>
         <spring-doc.version>2.5.0</spring-doc.version>
         <lombok.version>1.18.38</lombok.version>
-        <open-ai.version>2.11.0</open-ai.version>
+        <open-ai.version>2.16.0</open-ai.version>
         <dotenv-java.version>3.0.0</dotenv-java.version>
     </properties>
     <dependencies>

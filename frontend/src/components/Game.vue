@@ -1,11 +1,15 @@
 <template>
   <section class="main">
     <div class="status">{{ status }}</div>
-    <Board
-      :slot-matrix="slotMatrix"
-      :current-player="currentPlayer"
-      @player-pos="onPlayedToken"
-    />
+    <div class="view">
+      <div>Player1</div>
+      <Board
+        :slot-matrix="slotMatrix"
+        :current-player="currentPlayer"
+        @player-pos="onPlayedToken"
+      />
+      <Message />
+    </div>
   </section>
 </template>
 
@@ -14,6 +18,7 @@ import { ref } from "vue";
 import Board from "./board/Board.vue";
 import { checkWin, createMatrix } from "../util";
 import type { PlayerPos, TokenType } from "../types/types.ts";
+import Message from "./Message.vue";
 
 const slotMatrix: TokenType[][] = createMatrix(7, 7);
 const players: Record<string, TokenType> = {
@@ -55,5 +60,13 @@ const changePlayer = () => {
   display: grid;
   place-items: center;
   grid-template-rows: 1fr 10fr;
+}
+
+.view {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr auto 1fr;
 }
 </style>
