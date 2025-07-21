@@ -67,7 +67,7 @@ const onMouseLeave = () => {
 <style scoped lang="scss">
 .board {
   width: 75rem;
-  height: 80rem;
+  height: 75rem;
   display: grid;
   grid-template-rows: 1.5fr 10fr;
 }
@@ -77,7 +77,7 @@ const onMouseLeave = () => {
   height: 100%;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   border: 0.5rem solid black;
 }
 

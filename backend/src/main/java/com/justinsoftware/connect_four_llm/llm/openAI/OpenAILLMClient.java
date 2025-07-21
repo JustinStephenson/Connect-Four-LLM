@@ -1,12 +1,16 @@
 package com.justinsoftware.connect_four_llm.llm.openAI;
 
 import com.justinsoftware.connect_four_llm.llm.LLMClient;
+import com.justinsoftware.connect_four_llm.llm.LLMHelper;
 import com.openai.client.OpenAIClient;
-import com.openai.models.responses.Response;
 import com.openai.models.responses.ResponseCreateParams;
+import com.openai.models.responses.StructuredResponse;
+import com.openai.models.responses.StructuredResponseCreateParams;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import static com.justinsoftware.connect_four_llm.llm.LLMHelper.ResponseObject;
 
 @Component(value = "openAIClient")
 public class OpenAILLMClient implements LLMClient {
@@ -16,7 +20,7 @@ public class OpenAILLMClient implements LLMClient {
     @Value("${llm.model}")
     private String model;
 
-    private Response response;
+    private StructuredResponse<ResponseObject> response;
 
     public OpenAILLMClient(@Qualifier("openAI") OpenAIClient client) {
         this.client = client;
@@ -24,9 +28,12 @@ public class OpenAILLMClient implements LLMClient {
 
     @Override
     public void buildResponse(String prompt) {
-        ResponseCreateParams params = ResponseCreateParams.builder()
+        String fullPrompt = LLMHelper.CONNECT_FOUR_PROMPT + "\n\n" + prompt;
+
+        StructuredResponseCreateParams<ResponseObject> params = ResponseCreateParams.builder()
                 .model(model)
-                .input(prompt)
+                .text(ResponseObject.class)
+                .input(fullPrompt)
                 .build();
 
         response = client.responses().create(params);
@@ -40,7 +47,7 @@ public class OpenAILLMClient implements LLMClient {
                 .flatMap(item -> item.message().stream())
                 .flatMap(message -> message.content().stream())
                 .flatMap(content -> content.outputText().stream())
-                .forEach(outputText -> stringBuilder.append(outputText.text()));
+                .forEach(stringBuilder::append);
 
         return stringBuilder.toString();
     }

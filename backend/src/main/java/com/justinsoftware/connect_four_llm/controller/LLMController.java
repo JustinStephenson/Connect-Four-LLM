@@ -19,9 +19,16 @@ public class LLMController {
         return llmService.getResponse();
     }
 
-    @PostMapping("/prompt")
+    @PostMapping("/message")
     public String getLLMResponse(@RequestBody PromptDTO request) {
-        llmService.buildResponse(request.prompt());
+        llmService.buildResponse(request.message());
+        return llmService.getResponse();
+    }
+
+    @PostMapping("/board")
+    public String takeTurn(@RequestBody PromptDTO request) {
+        String board = request.boardState().toString();
+        llmService.buildResponse(board);
         return llmService.getResponse();
     }
 }
