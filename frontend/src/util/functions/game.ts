@@ -84,3 +84,29 @@ const checkRowBounds = (currentRow: number, totalRows: number): boolean => {
 const checkColBounds = (currentCol: number, totalCols: number): boolean => {
   return currentCol >= 0 && currentCol < totalCols;
 };
+
+/**
+ * Places a token on the game board in the specified column.
+ * The token is placed in the lowest possible empty row within the column.
+ *
+ * @param {TokenType[][]} board - A 2D array representing the game board. Each element represents a token or an empty space.
+ * @param {TokenType} token - The token to place on the board.
+ * @param {number} columnIndex - The index of the column where the token should be placed.
+ * @param {Function} [onPlaced] - An optional callback function invoked after the token is successfully placed.
+ */
+export const placeToken = (
+  board: TokenType[][],
+  token: TokenType,
+  columnIndex: number,
+  onPlaced?: (row: number, col: number) => void,
+): void => {
+  for (let row: number = board.length - 1; row >= 0; row--) {
+    if (board[row][columnIndex] === 0) {
+      board[row][columnIndex] = token;
+      if (onPlaced) {
+        onPlaced(row, columnIndex);
+      }
+      break;
+    }
+  }
+};

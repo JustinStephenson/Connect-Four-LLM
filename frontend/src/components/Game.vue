@@ -6,8 +6,13 @@
       <Board
         :slot-matrix="board"
         :current-player="currentPlayer"
-        @player-pos="onPlayedToken"
+        @player-pos="onPlayerPlayed"
       />
+      <div v-if="llmLoading">
+        <Spinner />
+        <span>Thinking...</span>
+      </div>
+      <div v-else>LLM</div>
     </div>
   </section>
 </template>
@@ -15,20 +20,23 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Board from "./board/Board.vue";
-import { checkWin, createMatrix } from "../util";
-import type { PlayerPos, TokenType } from "../types/types.ts";
+import Spinner from "./Spinner.vue";
+import { checkWin, createMatrix, placeToken } from "../util";
+import type { LLMResponse, PlayerPos, TokenType } from "../types/types.ts";
 
-const board: TokenType[][] = createMatrix(6, 7);
 const players: Record<string, TokenType> = {
   PlayerOne: 1 as TokenType,
   PlayerTwo: 2 as TokenType,
 };
+
+const board = ref<TokenType[][]>(createMatrix(6, 7));
 const currentPlayer = ref<TokenType>(players.PlayerOne);
+const llmLoading = ref<boolean>(false);
 const status = ref<string>("");
 
-const onPlayedToken = (playerPos: PlayerPos) => {
+const onPlayerPlayed = (playerPos: PlayerPos) => {
   const hasWon = checkWin(
-    board,
+    board.value,
     currentPlayer.value,
     playerPos.row,
     playerPos.col,
@@ -36,18 +44,11 @@ const onPlayedToken = (playerPos: PlayerPos) => {
   if (hasWon) {
     status.value = "Player " + currentPlayer.value + " has won!";
   } else {
-    changePlayer();
-  }
-};
-const changePlayer = () => {
-  if (currentPlayer.value === players.PlayerOne) {
-    llmTakeTurn(board);
-    currentPlayer.value = players.PlayerTwo;
-  } else {
-    currentPlayer.value = players.PlayerOne;
+    llmTakeTurn(board.value);
   }
 };
 const llmTakeTurn = async (boardState: TokenType[][]) => {
+  llmLoading.value = true;
   const res = await fetch("/server/connect-four/board", {
     method: "POST",
     headers: {
@@ -58,7 +59,10 @@ const llmTakeTurn = async (boardState: TokenType[][]) => {
     }),
   });
   const response = await res.text();
-  console.log("llm response:", response);
+  const jsonResponse = JSON.parse(response) as LLMResponse;
+  console.log(jsonResponse);
+  llmLoading.value = false;
+  placeToken(boardState, players.PlayerTwo, jsonResponse.choice);
 };
 </script>
 

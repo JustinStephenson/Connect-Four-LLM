@@ -33,6 +33,7 @@ import Slot from "./Slot.vue";
 import { ref } from "vue";
 import Token from "./Token.vue";
 import type { PlayerPos, TokenType } from "../../types/types.ts";
+import { placeToken } from "../../util";
 
 type BoardProps = {
   slotMatrix: TokenType[][];
@@ -47,14 +48,13 @@ const emit = defineEmits<BoardEmits>();
 
 const hoveredColumn = ref<number | null>(null);
 
+const emitPlayerPos = (row: number, columnIndex: number) => {
+  emit("playerPos", { row: row, col: columnIndex });
+};
 const onClick = (columnIndex: number) => {
-  for (let row = props.slotMatrix.length - 1; row >= 0; row--) {
-    if (props.slotMatrix[row][columnIndex] === 0) {
-      props.slotMatrix[row][columnIndex] = props.currentPlayer;
-      emit("playerPos", { row: row, col: columnIndex });
-      break;
-    }
-  }
+  placeToken(props.slotMatrix, props.currentPlayer, columnIndex, (row, col) =>
+    emitPlayerPos(row, col),
+  );
 };
 const onMouseEnter = (columnIndex: number) => {
   hoveredColumn.value = columnIndex;
