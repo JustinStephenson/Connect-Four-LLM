@@ -2,17 +2,22 @@
   <section class="main">
     <div class="status">{{ status }}</div>
     <div class="view">
-      <div>Player1</div>
+      <PlayerCard>
+        <span>Player1</span>
+      </PlayerCard>
       <Board
         :slot-matrix="board"
         :current-player="currentPlayer"
         @player-pos="onPlayerPlayed"
       />
-      <div v-if="llmLoading">
-        <Spinner />
-        <span>Thinking...</span>
-      </div>
-      <div v-else>LLM</div>
+      <PlayerCard>
+        <div v-if="llmLoading">
+          <Spinner />
+          <br />
+          <span>Thinking...</span>
+        </div>
+        <div v-else>LLM</div>
+      </PlayerCard>
     </div>
   </section>
 </template>
@@ -23,6 +28,7 @@ import Board from "./board/Board.vue";
 import Spinner from "./Spinner.vue";
 import { checkWin, createMatrix, placeToken } from "../util";
 import type { LLMResponse, PlayerPos, TokenType } from "../types/types.ts";
+import PlayerCard from "./PlayerCard.vue";
 
 const players: Record<string, TokenType> = {
   PlayerOne: 1 as TokenType,

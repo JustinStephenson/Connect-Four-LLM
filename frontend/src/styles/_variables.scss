@@ -15,7 +15,13 @@
 
   // Colors
   --background-color: white;
+  --base-color: black;
 
   --token-color-player-one: #f52837;
   --token-color-player-two: #efd823;
+
+  --spinner-color: black;
+
+  // Borders
+  --standard-border: 0.3rem solid var(--base-color);
 }

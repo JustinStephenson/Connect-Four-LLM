@@ -25,10 +25,10 @@
 }
 
 .loading {
-  width: 10rem;
-  height: 10rem;
-  border: 1.5rem solid white;
-  border-top: 1.5rem solid black;
+  width: 7.5rem;
+  height: 7.5rem;
+  border: 1rem solid var(--background-color);
+  border-top: 1rem solid var(--spinner-color);
   border-radius: 50%;
   animation: spinner 1.5s linear infinite;
 }
