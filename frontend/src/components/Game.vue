@@ -2,7 +2,7 @@
   <section class="main">
     <div class="status">{{ status }}</div>
     <div class="view">
-      <PlayerCard>
+      <PlayerCard :image-url="Player_Icon">
         <span>Player1</span>
       </PlayerCard>
       <Board
@@ -10,7 +10,7 @@
         :current-player="currentPlayer"
         @player-pos="onPlayerPlayed"
       />
-      <PlayerCard>
+      <PlayerCard :image-url="AI_Icon">
         <div v-if="llmLoading">
           <Spinner />
           <br />
@@ -25,10 +25,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Board from "./board/Board.vue";
-import Spinner from "./Spinner.vue";
+import Spinner from "./common/Spinner.vue";
+import PlayerCard from "./common/PlayerCard.vue";
+import AI_Icon from "../assets/AI_icon.png";
+import Player_Icon from "../assets/Player_icon.png";
 import { checkWin, createMatrix, placeToken } from "../util";
 import type { LLMResponse, PlayerPos, TokenType } from "../types/types.ts";
-import PlayerCard from "./PlayerCard.vue";
 
 const players: Record<string, TokenType> = {
   PlayerOne: 1 as TokenType,
