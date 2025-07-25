@@ -2,7 +2,7 @@
   <section class="main">
     <div class="status">{{ status }}</div>
     <div class="view">
-      <PlayerCard :image-url="Player_Icon">
+      <PlayerCard :image-url="Player_Icon" :token="players.PlayerOne">
         <span>Player1</span>
       </PlayerCard>
       <Board
@@ -10,7 +10,7 @@
         :current-player="currentPlayer"
         @player-pos="onPlayerPlayed"
       />
-      <PlayerCard :image-url="AI_Icon">
+      <PlayerCard :image-url="AI_Icon" :token="players.PlayerTwo">
         <div v-if="llmLoading">
           <Spinner />
           <br />
