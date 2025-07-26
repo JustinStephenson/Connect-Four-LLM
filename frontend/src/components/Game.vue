@@ -1,13 +1,20 @@
 <template>
   <section class="main">
-    <div class="status">{{ status }}</div>
+    <div class="status">
+      <span class="status__text">{{ status }}</span>
+      <div class="status__button">
+        <Button @click="playAgain()">
+          <span>Play Again</span>
+        </Button>
+      </div>
+    </div>
     <div class="view">
       <PlayerCard :image-url="Player_Icon" :token="players.PlayerOne">
         <span>Player 1</span>
       </PlayerCard>
       <Board
         :slot-matrix="board"
-        :current-player="currentPlayer"
+        :current-player="players.PlayerOne"
         @player-pos="onPlayerPlayed"
       />
       <PlayerCard :image-url="AI_Icon" :token="players.PlayerTwo">
@@ -40,6 +47,7 @@ import AI_Icon from "../assets/AI_icon.png";
 import Player_Icon from "../assets/Player_icon.png";
 import { checkWin, createMatrix, placeToken } from "../util";
 import type { LLMResponse, PlayerPos, TokenType } from "../types/types.ts";
+import Button from "./common/Button.vue";
 
 const players: Record<string, TokenType> = {
   PlayerOne: 1 as TokenType,
@@ -47,23 +55,23 @@ const players: Record<string, TokenType> = {
 };
 
 const board = ref<TokenType[][]>(createMatrix(6, 7));
-const currentPlayer = ref<TokenType>(players.PlayerOne);
 const llmLoading = ref<boolean>(false);
 const llmResponse = ref<LLMResponse>(null);
 const status = ref<string>("");
 
 const onPlayerPlayed = (playerPos: PlayerPos) => {
-  const hasWon = checkWin(
-    board.value,
-    currentPlayer.value,
-    playerPos.row,
-    playerPos.col,
-  );
-  if (hasWon) {
-    status.value = "Player " + currentPlayer.value + " has won!";
-  } else {
+  const hasWon = checkForWin(playerPos, players.PlayerOne);
+  if (!hasWon) {
     llmTakeTurn(board.value);
   }
+};
+const checkForWin = (playerPos: PlayerPos, player: TokenType): boolean => {
+  const hasWon = checkWin(board.value, player, playerPos.row, playerPos.col);
+  if (hasWon) {
+    status.value = "Player " + player + " has won!";
+    return true;
+  }
+  return false;
 };
 const llmTakeTurn = async (boardState: TokenType[][]) => {
   llmLoading.value = true;
@@ -82,10 +90,20 @@ const llmTakeTurn = async (boardState: TokenType[][]) => {
   llmLoading.value = false;
   llmResponse.value = jsonResponse;
 
-  placeToken(boardState, players.PlayerTwo, jsonResponse.choice);
+  if (jsonResponse != null) {
+    placeToken(boardState, players.PlayerTwo, jsonResponse.choice, (row, col) =>
+      checkForWin({ row: row, col: col }, players.PlayerTwo),
+    );
+  }
 };
 const llmChoice = (choice: number): string => {
   return "Column " + (choice + 1) + "";
+};
+const playAgain = () => {
+  board.value = createMatrix(6, 7);
+  llmLoading.value = false;
+  llmResponse.value = null;
+  status.value = "";
 };
 </script>
 
@@ -99,6 +117,21 @@ const llmChoice = (choice: number): string => {
   display: grid;
   place-items: center;
   grid-template-rows: 1fr 10fr;
+}
+
+.status {
+  width: 100%;
+  height: 100%;
+  @include mixin.flexCenter();
+  flex-direction: column;
+
+  &__text {
+    transform: translate(0, 50%);
+  }
+
+  &__button {
+    transform: translate(0, 150%);
+  }
 }
 
 .view {
@@ -122,9 +155,6 @@ const llmChoice = (choice: number): string => {
     @include mixin.flexCenter();
     flex-direction: column;
     gap: 1rem;
-  }
-
-  &__choice {
   }
 }
 </style>

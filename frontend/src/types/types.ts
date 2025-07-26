@@ -3,4 +3,4 @@ export type PlayerPos = { row: number; col: number };
 export type LLMResponse = {
   reasoning: string;
   choice: number;
-};
+} | null;
